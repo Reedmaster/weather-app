@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -27,3 +28,13 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+Route::get('/weather', function () {
+    $apiKey = config('services.openweathermap.key');
+    $city = request('city');
+    $country = request('country');
+
+    $response = Http::get("http://api.openweathermap.org/data/2.5/weather?q=$city,$country&units=metric&appid=$apiKey");
+
+    return $response->json();
+});
