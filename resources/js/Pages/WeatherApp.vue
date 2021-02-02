@@ -9,17 +9,17 @@
                 <div class="current-weather flex items-center justify-between px-6 py-8">
                     <div class="flex item-center">
                         <div>
-                            <div class="text-6xl font-semibold">{{ currentWeather.temp }} C</div>
-                            <div>Feels like {{ currentWeather.feels_like }} C</div>
+                            <div class="text-6xl font-semibold"> C</div>
+                            <div>Feels like C</div>
                         </div>
 
                         <div class="mx-5">
-                            <div class="font-semibold">{{ currentWeather.description }}</div>
-                            <div>{{ location.city }}</div>
+                            <div class="font-semibold"></div>
+                            <div></div>
                         </div>
                     </div>
 
-                    <div>{{ currentWeather.icon }}</div>
+                    <div></div>
                 </div>
 
                 <div class="future-weather text-sm bg-gray-800 px-6 py-8 overflow-hidden">
@@ -49,30 +49,20 @@
 
         data() {
             return {
-                currentWeather: {
-                    temp: '',
-                    feels_like: '',
-                    description: '',
-                    icon: '',
-                },
-
                 location: {
-                    city: 'Bath',
-                    country: 'uk',
+                    name: 'Bath, uk',
+                    lat: 51.3779,
+                    lon: -2.3591,
                 }
             }
         },
 
         methods: {
             fetchData() {
-                fetch(`/weather?city=${this.location.city}&country=${this.location.country}`)
+                fetch(`/weather?lat=${this.location.lat}&lon=${this.location.lon}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    this.currentWeather.temp = Math.round(data.main.temp)
-                    this.currentWeather.feels_like = Math.round(data.main.feels_like)
-                    this.currentWeather.description = data.weather.main
-                    this.currentWeather.icon = data.weather.icon
                 })
             }
         }

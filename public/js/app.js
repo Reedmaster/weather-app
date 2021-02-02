@@ -6245,30 +6245,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      currentWeather: {
-        temp: '',
-        feels_like: '',
-        description: '',
-        icon: ''
-      },
       location: {
-        city: 'Bath',
-        country: 'uk'
+        name: 'Bath, uk',
+        lat: 51.3779,
+        lon: -2.3591
       }
     };
   },
   methods: {
     fetchData: function fetchData() {
-      var _this = this;
-
-      fetch("/weather?city=".concat(this.location.city, "&country=").concat(this.location.country)).then(function (response) {
+      fetch("/weather?lat=".concat(this.location.lat, "&lon=").concat(this.location.lon)).then(function (response) {
         return response.json();
       }).then(function (data) {
         console.log(data);
-        _this.currentWeather.temp = Math.round(data.main.temp);
-        _this.currentWeather.feels_like = Math.round(data.main.feels_like);
-        _this.currentWeather.description = data.weather.main;
-        _this.currentWeather.icon = data.weather.icon;
       });
     }
   }
@@ -33607,98 +33596,84 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "flex justify-center pt-16", attrs: { id: "app" } },
-    [
-      _c("div", { staticClass: "text-white mb-8" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "weather-container font-sans w-128 max-w-lg rounded-lg overflow-hidden bg-gray-900 shadow-lg mt-4"
-          },
-          [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "current-weather flex items-center justify-between px-6 py-8"
-              },
-              [
-                _c("div", { staticClass: "flex item-center" }, [
-                  _c("div", [
-                    _c("div", { staticClass: "text-6xl font-semibold" }, [
-                      _vm._v(_vm._s(_vm.currentWeather.temp) + " C")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _vm._v(
-                        "Feels like " +
-                          _vm._s(_vm.currentWeather.feels_like) +
-                          " C"
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "mx-5" }, [
-                    _c("div", { staticClass: "font-semibold" }, [
-                      _vm._v(_vm._s(_vm.currentWeather.description))
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [_vm._v(_vm._s(_vm.location.city))])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", [_vm._v(_vm._s(_vm.currentWeather.icon))])
-              ]
-            ),
-            _vm._v(" "),
-            _vm._m(1)
-          ]
-        )
-      ])
-    ]
-  )
+  return _vm._m(0)
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "places-input text-gray-800" }, [
-      _c("input", { staticClass: "w-full", attrs: { type: "text" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "div",
-      {
-        staticClass:
-          "future-weather text-sm bg-gray-800 px-6 py-8 overflow-hidden"
-      },
+      { staticClass: "flex justify-center pt-16", attrs: { id: "app" } },
       [
-        _c("div", { staticClass: "flex items-center" }, [
-          _c("div", { staticClass: "w-1/6 text-lg text-gray-200" }, [
-            _vm._v("MON")
+        _c("div", { staticClass: "text-white mb-8" }, [
+          _c("div", { staticClass: "places-input text-gray-800" }, [
+            _c("input", { staticClass: "w-full", attrs: { type: "text" } })
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "w-4/6 px-4 flex items-center" }, [
-            _c("div", [_vm._v("Icon")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "ml-3" }, [_vm._v("More rain")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "w-1/6 text-right" }, [
-            _c("div", [_vm._v("5 C")]),
-            _vm._v(" "),
-            _c("div", [_vm._v("-2 C")])
-          ])
+          _c(
+            "div",
+            {
+              staticClass:
+                "weather-container font-sans w-128 max-w-lg rounded-lg overflow-hidden bg-gray-900 shadow-lg mt-4"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "current-weather flex items-center justify-between px-6 py-8"
+                },
+                [
+                  _c("div", { staticClass: "flex item-center" }, [
+                    _c("div", [
+                      _c("div", { staticClass: "text-6xl font-semibold" }, [
+                        _vm._v(" C")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [_vm._v("Feels like C")])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "mx-5" }, [
+                      _c("div", { staticClass: "font-semibold" }),
+                      _vm._v(" "),
+                      _c("div")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div")
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "future-weather text-sm bg-gray-800 px-6 py-8 overflow-hidden"
+                },
+                [
+                  _c("div", { staticClass: "flex items-center" }, [
+                    _c("div", { staticClass: "w-1/6 text-lg text-gray-200" }, [
+                      _vm._v("MON")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-4/6 px-4 flex items-center" }, [
+                      _c("div", [_vm._v("Icon")]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "ml-3" }, [_vm._v("More rain")])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-1/6 text-right" }, [
+                      _c("div", [_vm._v("5 C")]),
+                      _vm._v(" "),
+                      _c("div", [_vm._v("-2 C")])
+                    ])
+                  ])
+                ]
+              )
+            ]
+          )
         ])
       ]
     )

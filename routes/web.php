@@ -31,10 +31,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::get('/weather', function () {
     $apiKey = config('services.openweathermap.key');
-    $city = request('city');
-    $country = request('country');
+    $lat = request('lat');
+    $lon = request('lon');
 
-    $response = Http::get("http://api.openweathermap.org/data/2.5/weather?q=$city,$country&units=metric&appid=$apiKey");
+    $response = Http::get("https://api.openweathermap.org/data/2.5/onecall?lat=$lat&lon=$lon&exclude=minutely,hourly,alerts&units=metric&appid=$apiKey");
 
     return $response->json();
 });
