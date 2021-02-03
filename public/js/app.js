@@ -6255,6 +6255,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mounted: function mounted() {
     var _this = this;
@@ -33726,59 +33729,60 @@ var render = function() {
                   "future-weather text-sm bg-gray-800 px-6 py-8 overflow-hidden"
               },
               _vm._l(_vm.daily, function(day, index) {
-                return index < 5
-                  ? _c(
-                      "div",
-                      {
-                        key: index,
-                        staticClass: "flex items-center",
-                        class: { "mt-8": index > 0 }
-                      },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "w-1/6 text-lg text-gray-200" },
-                          [_vm._v(_vm._s(_vm.toDayOfWeek(day.dt)))]
-                        ),
-                        _vm._v(" "),
-                        _vm._l(day.weather, function(item) {
-                          return _c(
+                return _c("div", { key: index }, [
+                  index < 5
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "flex items-center",
+                          class: { "mt-8": index > 0 }
+                        },
+                        [
+                          _c(
                             "div",
-                            {
-                              key: item,
-                              staticClass: "w-4/6 px-4 flex items-center"
-                            },
-                            [
-                              _c("img", {
-                                attrs: {
-                                  src:
-                                    "http://openweathermap.org/img/wn/" +
-                                    item.icon +
-                                    ".png",
-                                  alt: ""
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "ml-3 capitalize" }, [
-                                _vm._v(_vm._s(item.description))
-                              ])
-                            ]
-                          )
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "w-1/6 text-right" }, [
-                          _c("div", [
-                            _vm._v(_vm._s(Math.round(day.temp.max)) + "°C")
-                          ]),
+                            { staticClass: "w-1/6 text-lg text-gray-200" },
+                            [_vm._v(_vm._s(_vm.toDayOfWeek(day.dt)))]
+                          ),
                           _vm._v(" "),
-                          _c("div", [
-                            _vm._v(_vm._s(Math.round(day.temp.min)) + "°C")
+                          _vm._l(day.weather, function(item) {
+                            return _c(
+                              "div",
+                              {
+                                key: item,
+                                staticClass: "w-4/6 px-4 flex items-center"
+                              },
+                              [
+                                _c("img", {
+                                  attrs: {
+                                    src:
+                                      "http://openweathermap.org/img/wn/" +
+                                      item.icon +
+                                      ".png",
+                                    alt: ""
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "ml-3 capitalize" }, [
+                                  _vm._v(_vm._s(item.description))
+                                ])
+                              ]
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-1/6 text-right" }, [
+                            _c("div", [
+                              _vm._v(_vm._s(Math.round(day.temp.max)) + "°C")
+                            ]),
+                            _vm._v(" "),
+                            _c("div", [
+                              _vm._v(_vm._s(Math.round(day.temp.min)) + "°C")
+                            ])
                           ])
-                        ])
-                      ],
-                      2
-                    )
-                  : _vm._e()
+                        ],
+                        2
+                      )
+                    : _vm._e()
+                ])
               }),
               0
             )

@@ -32,23 +32,26 @@
                     <div 
                         v-for="(day, index) in daily"
                         :key="index"
-                        class="flex items-center"
-                        :class="{ 'mt-8' : index > 0 }" 
-                        v-if="index < 5" 
                     >
-                        <div class="w-1/6 text-lg text-gray-200">{{ toDayOfWeek(day.dt) }}</div>
-                        <div 
-                            v-for="item in day.weather"
-                            :key="item"
-                            class="w-4/6 px-4 flex items-center"
+                        <div
+                            class="flex items-center"
+                            v-if="index < 5" 
+                            :class="{ 'mt-8' : index > 0 }" 
                         >
-                            <img v-bind:src="'http://openweathermap.org/img/wn/' + item.icon + '.png'" alt="">
+                            <div class="w-1/6 text-lg text-gray-200">{{ toDayOfWeek(day.dt) }}</div>
+                            <div 
+                                v-for="item in day.weather"
+                                :key="item"
+                                class="w-4/6 px-4 flex items-center"
+                            >
+                                <img v-bind:src="'http://openweathermap.org/img/wn/' + item.icon + '.png'" alt="">
 
-                            <div class="ml-3 capitalize">{{ item.description }}</div>
-                        </div>
-                        <div class="w-1/6 text-right">
-                            <div>{{ Math.round(day.temp.max) }}°C</div>
-                            <div>{{ Math.round(day.temp.min) }}°C</div>
+                                <div class="ml-3 capitalize">{{ item.description }}</div>
+                            </div>
+                            <div class="w-1/6 text-right">
+                                <div>{{ Math.round(day.temp.max) }}°C</div>
+                                <div>{{ Math.round(day.temp.min) }}°C</div>
+                            </div>
                         </div>
                     </div>
                 </div>
