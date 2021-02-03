@@ -6257,7 +6257,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mounted: function mounted() {
+    var _this = this;
+
     this.fetchData();
+    var placesAutocomplete = places({
+      appId: 'plTTN6NMFY49',
+      apiKey: 'e11904ffe1c397f1a8e5015d265ed8cd',
+      container: document.querySelector('#address')
+    }).configure({
+      type: 'city',
+      aroundLatLngViaIP: false
+    });
+    var $address = document.querySelector('#address-value');
+    placesAutocomplete.on('change', function (e) {
+      console.log(e.suggestion);
+      $address.textContent = e.suggestion.value;
+      _this.location.name = "".concat(e.suggestion.name, ", ").concat(e.suggestion.country);
+      _this.location.lat = e.suggestion.latlng.lat;
+      _this.location.lon = e.suggestion.latlng.lng;
+    });
+    placesAutocomplete.on('clear', function () {
+      $address, textContent = 'none';
+    });
+  },
+  watch: {
+    location: {
+      handler: function handler(newValue, oldValue) {
+        this.fetchData();
+      },
+      deep: true
+    }
   },
   data: function data() {
     return {
@@ -6278,16 +6307,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     fetchData: function fetchData() {
-      var _this = this;
+      var _this2 = this;
 
       fetch("/weather?lat=".concat(this.location.lat, "&lon=").concat(this.location.lon)).then(function (response) {
         return response.json();
       }).then(function (data) {
-        _this.currentTemp.actual = Math.round(data.current.temp);
-        _this.currentTemp.feels_like = Math.round(data.current.feels_like);
-        _this.current.currentWeather = data.current.weather;
-        _this.daily = data.daily;
-        console.log(_this.current.currentWeather);
+        _this2.currentTemp.actual = Math.round(data.current.temp);
+        _this2.currentTemp.feels_like = Math.round(data.current.feels_like);
+        _this2.current.currentWeather = data.current.weather;
+        _this2.daily = data.daily;
       });
     },
     toDayOfWeek: function toDayOfWeek(timestamp) {
@@ -33645,51 +33673,51 @@ var render = function() {
               "weather-container font-sans w-128 max-w-lg rounded-lg overflow-hidden bg-gray-900 shadow-lg mt-4"
           },
           [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "current-weather flex items-center justify-between px-6 py-8"
-              },
-              [
-                _c("div", { staticClass: "flex item-center" }, [
-                  _c("div", [
-                    _c("div", { staticClass: "text-6xl font-semibold" }, [
-                      _vm._v(_vm._s(_vm.currentTemp.actual) + " C")
+            _vm._l(_vm.current.currentWeather, function(item) {
+              return _c(
+                "div",
+                {
+                  key: item,
+                  staticClass:
+                    "current-weather flex items-center justify-between px-6 py-8"
+                },
+                [
+                  _c("div", { staticClass: "flex item-center" }, [
+                    _c("div", [
+                      _c("div", { staticClass: "text-6xl font-semibold" }, [
+                        _vm._v(_vm._s(_vm.currentTemp.actual) + "°C")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _vm._v(
+                          "Feels like " +
+                            _vm._s(_vm.currentTemp.feels_like) +
+                            "°C"
+                        )
+                      ])
                     ]),
                     _vm._v(" "),
-                    _c("div", [
-                      _vm._v(
-                        "Feels like " +
-                          _vm._s(_vm.currentTemp.feels_like) +
-                          " C"
-                      )
+                    _c("div", { staticClass: "mx-5 mt-4" }, [
+                      _c("div", { staticClass: "font-semibold capitalize" }, [
+                        _vm._v(_vm._s(item.description))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [_vm._v(_vm._s(_vm.location.name))])
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "mx-5" }, [
-                    _c("div", { staticClass: "font-semibold" }),
-                    _vm._v(" "),
-                    _c("div", [_vm._v(_vm._s(_vm.location.name))])
-                  ])
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.current.currentWeather, function(item) {
-                  return _c("div", { key: item }, [
-                    _c("img", {
-                      attrs: {
-                        src:
-                          "http://openweathermap.org/img/wn/" +
-                          item.icon +
-                          "@2x.png",
-                        alt: ""
-                      }
-                    })
-                  ])
-                })
-              ],
-              2
-            ),
+                  _c("img", {
+                    attrs: {
+                      src:
+                        "http://openweathermap.org/img/wn/" +
+                        item.icon +
+                        "@2x.png",
+                      alt: ""
+                    }
+                  })
+                ]
+              )
+            }),
             _vm._v(" "),
             _c(
               "div",
@@ -33731,7 +33759,7 @@ var render = function() {
                                 }
                               }),
                               _vm._v(" "),
-                              _c("div", { staticClass: "ml-3" }, [
+                              _c("div", { staticClass: "ml-3 capitalize" }, [
                                 _vm._v(_vm._s(item.description))
                               ])
                             ]
@@ -33740,11 +33768,11 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "w-1/6 text-right" }, [
                           _c("div", [
-                            _vm._v(_vm._s(Math.round(day.temp.max)) + " C")
+                            _vm._v(_vm._s(Math.round(day.temp.max)) + "°C")
                           ]),
                           _vm._v(" "),
                           _c("div", [
-                            _vm._v(_vm._s(Math.round(day.temp.min)) + " C")
+                            _vm._v(_vm._s(Math.round(day.temp.min)) + "°C")
                           ])
                         ])
                       ],
@@ -33754,7 +33782,8 @@ var render = function() {
               }),
               0
             )
-          ]
+          ],
+          2
         )
       ])
     ]
@@ -33766,7 +33795,19 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "places-input text-gray-800" }, [
-      _c("input", { staticClass: "w-full", attrs: { type: "text" } })
+      _c("input", {
+        staticClass: "form-control rounded-lg",
+        attrs: {
+          type: "search",
+          id: "address",
+          placeholder: "In which city do you live?"
+        }
+      }),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v("Selected: "),
+        _c("strong", { attrs: { id: "address-value" } }, [_vm._v("none")])
+      ])
     ])
   }
 ]
